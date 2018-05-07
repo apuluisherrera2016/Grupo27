@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Aplicacion gestor de autos</title>
+    </h:head>
+    <h:body>
+        <p:panel id="pnlLista" header="Lista de autos">
+            <h:form id="frmLista">
+                     
+
+                <p:inputText id="txtPatente" value="#{gestorAutosFormBean.patente}" placeholder="Patente" ></p:inputText>
+                <p:inputText id="txtMarca" value="#{gestorAutosFormBean.marca}" placeholder="Marca"></p:inputText>
+                <p:inputText id="txtColor" value="#{gestorAutosFormBean.color}" placeholder="Color"></p:inputText>
+                <p:inputNumber id="nMod" value="#{gestorAutosFormBean.modelo}" placeholder="Modelo"></p:inputNumber>
+                <p:inputText id="txtTc" value="#{gestorAutosFormBean.tc}" placeholder="Tipo de Conbustible"></p:inputText>
+                         
+                
+                <p:commandButton id="btnGaregar" value="Agregar" actionListener="#{gestorAutosFormBean.agregar()}" update="dtLista"></p:commandButton>
+                
+                
+                
+             
+                       
+                <p:dataTable id="dtLista" value="#{gestorAutosFormBean.lista}" paginator="true" editable="true" var="P" >
+             
+                    <p:column headerText="Patente"  >
+                        <p:outputLabel id="lblPatente" value="#{P.patente}" ></p:outputLabel>                 
+                       
+                    </p:column>
+                    <p:column headerText="Marca">
+                        <p:outputLabel value="#{P.marca}"></p:outputLabel>
+                     </p:column>
+                    <p:column headerText="Color">
+                        <p:outputLabel value="#{P.color}"></p:outputLabel>
+                    </p:column>
+                     <p:column headerText="Modelo">
+                         <p:outputLabel value="#{P.modelo}"></p:outputLabel>
+                    </p:column>
+                     <p:column headerText="Tipo de Combustible">
+                         <p:outputLabel value="#{P.tc}"></p:outputLabel>
+                    </p:column>
+                    
+                     <p:column headerText="Ver">
+                         
+                        <p:column style="width:32px;text-align: center">
+             <p:commandButton update="datosAuto" oncomplete="PF('dlg2').show()" icon="ui-icon-search" title="Ver">
+                 <f:setPropertyActionListener value="#{P}" target="#{gestorAutosFormBean.autoSelecionado}" />
+            </p:commandButton>
+        </p:column>
+                    </p:column>
+                </p:dataTable>
+               
+          
+               
+            </h:form>
+       
+            
+             <p:dialog id="datosAuto" header="Mostrar Datos" widgetVar="dlg2" modal="true" height="100"   >
+
+            <p:panelGrid id ="grdDatos" columns="7" >     
+                
+             
+               
+                <p:inputText id="lblPat" value="#{gestorAutosFormBean.autoSelecionado.patente}"/>
+                <p:outputLabel id="lblMar" value="#{gestorAutosFormBean.autoSelecionado.marca}"/>
+                <p:outputLabel id="lblClr" value="#{gestorAutosFormBean.autoSelecionado.color}"/>
+                <p:outputLabel id="lblMod" value="#{gestorAutosFormBean.autoSelecionado.modelo}"/>
+                <p:outputLabel id="lblTc" value="#{gestorAutosFormBean.autoSelecionado.tc}"/>
+
+                
+            </p:panelGrid>
+        </p:dialog>
+        </p:panel>
+    </h:body>
+</html>
+
+
+

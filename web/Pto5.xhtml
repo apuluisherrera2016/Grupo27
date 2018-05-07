@@ -2,56 +2,106 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
-     
-      
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
     <h:head>
         <title>Punto 5</title>
     </h:head>
     <h:body>
-       
+
         <p:panel id="pnlProfesor" header="Gestion de Profesor">
             <h:form>
-            <p:panelGrid id="grdProfesor" columns="2"> 
-                
+                <p:panelGrid id="grdProfesor" columns="2"> 
+
+
+                    <p:outputLabel id="lblNombre" value="Nombre"></p:outputLabel>
+                    <p:inputText id="txtNombre" value="#{profesorFormBeans.profesor.nombre}"></p:inputText>
+
+
+
+                    <p:outputLabel id="lblApellido" value="Apellido"></p:outputLabel>
+                    <p:inputText id="txtApellido" value="#{profesorFormBeans.profesor.apellido}"></p:inputText>
+
                     <p:outputLabel id="lblLegajo" value="Legajo"></p:outputLabel>
                     <p:inputNumber id="txtlegajo" value="#{profesorFormBeans.profesor.legajo}"></p:inputNumber>
+
+
+                    <p:outputLabel id="lblMateria" value="Materia"></p:outputLabel>
+                    <p:inputText id="txtMateria" value="#{profesorFormBeans.profesor.materia}"></p:inputText>
+
+                    <p:outputLabel id="lblEdad" value="Edad"></p:outputLabel>
+                    <p:inputText id="txtEdad" value="#{profesorFormBeans.profesor.edad}"></p:inputText>
+
+
+                    <h:commandButton value="Agregar" action="#{profesorFormBeans.cargarLista}"></h:commandButton>
+
                     
-                      <p:outputLabel id="lblNombre" value="Nombre"></p:outputLabel>
-                     <p:inputText id="txtNombre" value="#{profesorFormBeans.profesor.nombre}"></p:inputText>
-                    
-                       
-                    
-                     <p:outputLabel id="lblApellido" value="Apellido"></p:outputLabel>
-                     <p:inputText id="txtApellido" value="#{profesorFormBeans.profesor.apellido}"></p:inputText>
-                    
-                        <p:outputLabel id="lblMateria" value="Materia"></p:outputLabel>
-                        <p:inputText id="txtMateria" value="#{profesorFormBeans.profesor.materia}"></p:inputText>
-                    
-                        <p:outputLabel id="lblEdad" value="Edad"></p:outputLabel>
-                        <p:inputText id="txtEdad" value="#{profesorFormBeans.profesor.edad}"></p:inputText>
-                    
-                       
-                     <p:commandButton value="Mostrar" oncomplete="PF('dlg2').show();" update="datosProfe" />
- 
-                       </p:panelGrid>
-             </h:form>
+                  
+                </p:panelGrid>
+
+
+                <h:dataTable value="#{profesorFormBeans.lista}" rows="6" var="lis">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="NOMBRE"/>
+                        </f:facet>
+                        <h:outputText value="#{lis.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="APELLIDO"/>
+                        </f:facet>
+                        <h:outputText value="#{lis.apellido}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="LEGAJO"/>
+                        </f:facet>
+                        <h:outputText value="#{lis.legajo}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="EDAD"/>
+                        </f:facet>
+                        <h:outputText value="#{lis.edad}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="MATERIA"/>
+                        </f:facet>
+                        <h:outputText value="#{lis.materia}"/>
+                    </h:column>
+                    <p:column style="width:32px;text-align: center">
+             <p:commandButton update="datosProfe" oncomplete="PF('dlg2').show()" icon="ui-icon-search" title="Ver">
+                 <f:setPropertyActionListener value="#{lis}" target="#{profesorFormBeans.profesorSelecc}" />
+            </p:commandButton>
+        </p:column>
+                </h:dataTable>
+        
+
+
+            </h:form>
 
         </p:panel>
-        
+
         <p:dialog id="datosProfe" header="Mostrar Datos" widgetVar="dlg2" modal="true" height="100"   >
-              <p:panelGrid id ="grdDatos" columns="5" >            
-            <p:outputLabel id="lblLegajoProfesor" value="#{profesorFormBeans.profesor.legajo}"/>
-            <p:outputLabel id="lblNombreProf" value="#{profesorFormBeans.profesor.nombre}"/>
-            <p:outputLabel id="lblApellidoProfe" value="#{profesorFormBeans.profesor.apellido}"/>
-            <p:outputLabel id="lblEdad" value="#{profesorFormBeans.profesor.edad}"/>
-            <p:outputLabel id="lblMateria" value="#{profesorFormBeans.profesor.materia}"/>
-            
-            
-        </p:panelGrid>
+
+            <p:panelGrid id ="grdDatos" columns="6" >     
+                
+                <p:outputLabel id="lblLegajoProfesor" value="#{profesorFormBeans.profesorSelecc.legajo}"/>
+                <p:outputLabel id="lblNombreProf" value="#{profesorFormBeans.profesorSelecc.nombre}"/>
+                <p:outputLabel id="lblApellidoProfe" value="#{profesorFormBeans.profesorSelecc.apellido}"/>
+                <p:outputLabel id="lblEdd" value="#{profesorFormBeans.profesorSelecc.edad}"/>
+                <p:outputLabel id="lblMat" value="#{profesorFormBeans.profesorSelecc.materia}"/>
+
+
+
+            </p:panelGrid>
         </p:dialog>
-           
-        
+
+
     </h:body>
 </html>
 
